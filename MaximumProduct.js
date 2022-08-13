@@ -1,25 +1,13 @@
-const maxProduct = (nums) => {
-  let product = 0;
-  let maxProduct = nums[0];
-  let negative = nums.reduce((a, b) => (b < 0 ? ++a : a), 0);
-
-  for (let i = 0; i < nums.length; i++) {
-    if (
-      product === 0 ||
-      (nums[i] > 0 && product < 0 && (negative % 2 == 0 || negative === 0))
-    ) {
-      product = nums[i];
-    } else {
-      product *= nums[i];
-    }
-
-    if (nums[i] < 0) {
-      negative--;
-    }
-
-    maxProduct = Math.max(maxProduct, product);
+var maxProduct = function (nums) {
+  let prevMax = nums[0];
+  let prevMin = nums[0];
+  let result = nums[0];
+  for (let i = 1; i < nums.length; i++) {
+    curMax = Math.max(nums[i] * prevMax, nums[i], nums[i] * prevMin);
+    curMin = Math.min(nums[i] * prevMin, nums[i], nums[i] * prevMax);
+    prevMax = curMax;
+    prevMin = curMin;
+    result = Math.max(curMax, result);
   }
-  return maxProduct;
+  return result;
 };
-
-console.log(maxProduct([2, -5, -2, -4, 3]));

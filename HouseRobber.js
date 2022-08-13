@@ -3,7 +3,7 @@ var rob = function (nums) {
   let rob2 = 0;
 
   for (const n of nums) {
-    let tmp = Math.max(n + rob2, rob2);
+    let tmp = Math.max(n + rob1, rob2);
     rob1 = rob2;
     rob2 = tmp;
   }
